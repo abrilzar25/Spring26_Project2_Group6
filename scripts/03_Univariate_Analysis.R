@@ -1,6 +1,7 @@
 "Day 3: Task 1: Univariate & Bivariate Analysis & Visualization"
 
 library(tidyverse) #loading tidyverse package 
+library(fBasics)
 
 nhis_clean <- read_csv("data/nhis_clean.csv") #loading nhis_clean data into R
 
