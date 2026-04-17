@@ -1,39 +1,36 @@
 # Day 2: Task 1 - Variable Selection & Missing Value Check
-
+  
 library(tidyverse)
 
-data_import_R_01 <- read_csv("data/NHIS _Data_2021.csv")
+NHIS_Data_2021 <- read_csv("data/NHIS _Data_2021.csv")
 
-data_import_R_01_subset <- data_import_R_01 %>%
+# Select only variables asked for
+data_import_R_02_subset <- NHIS_Data_2021 |>
   select(
-    DEMENEV_A, COPDEV_A, DIBEV_A, HYPEV_A, DEPEV_A,
-    CANEV_A, AGEP_A, SEX_A, HISPALLP_A, MARSTAT_A,
-    EDUCP_A, SMKCIGST_A, PHSTAT_A, LSATIS4R_A, RATCAT_A,
-    BMICAT_A, WEIGHTLBTC_A, HEIGHTTC_A
+    AGEP_A,
+    WEIGHTLBTC_A,
+    HEIGHTTC_A,
+    SEX_A,
+    HISPALLP_A,
+    EDUCP_A,
+    PHSTAT_A,
+    LSATIS4R_A
   )
+View(data_import_R_02_subset)
 
 # Remove missing / nonresponse values using variable-specific codebook values
-clean_data_R_02 <- data_import_R_01_subset %>%
+clean_data_R_02 <- data_import_R_02_subset |>
   filter(
-    !DEMENEV_A %in% c(7, 8, 9),
-    !COPDEV_A %in% c(7, 8, 9),
-    !DIBEV_A %in% c(7, 8, 9),
-    !HYPEV_A %in% c(7, 8, 9),
-    !DEPEV_A %in% c(7, 8, 9),
-    !CANEV_A %in% c(7, 8, 9),
     !AGEP_A %in% c(97, 98, 99),
     !SEX_A %in% c(7, 9),
     !HISPALLP_A %in% c(97, 98, 99),
-    !MARSTAT_A %in% c(7, 8, 9),
     !EDUCP_A %in% c(97, 98, 99),
-    !SMKCIGST_A %in% c(7, 8, 9),
     !PHSTAT_A %in% c(7, 8, 9),
     !LSATIS4R_A %in% c(7, 8, 9),
-    !RATCAT_A %in% c(7, 8, 9),
-    !BMICAT_A %in% c(9),
     !WEIGHTLBTC_A %in% c(996, 997, 998, 999),
     !HEIGHTTC_A %in% c(96, 97, 98, 99)
-  )
+  ) 
+View(clean_data_R_02) # check
 
 # Check cleaned data
 summary(clean_data_R_02)
