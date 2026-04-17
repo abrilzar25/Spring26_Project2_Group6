@@ -1,7 +1,9 @@
 ---
 title: Spring 2026 PUBH 422 Project 2 Group 6
-output: html_document
-output: word_document
+output: 
+  word_document: default
+  html_document: default
+  pdf_document: default
 date: "2026-04-17"
 ---
 
