@@ -1,6 +1,7 @@
 ---
 title: Spring 2026 PUBH 422 Project 2 Group 6
 output: html_document
+output: word_document
 date: "2026-04-17"
 ---
 
@@ -89,7 +90,7 @@ Interpretation:
 
 
 
-```{r-Task 2:Perform an initial exploration}
+```{r-Task 2: Perform an initial exploration}
 library(tidyverse)
 
 NHIS_Data_2021 <- read_csv("data/NHIS _Data_2021.csv")
