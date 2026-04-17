@@ -1,7 +1,7 @@
 ---
 title: Spring 2026 PUBH 422 Project 2 Group 6
 output: 
-  word_document: default
+  word_document: default    (!!!!!!REKNIT WHEN EVERYONE IS DONE WITH INTERPRETATIONS!!!!)
   html_document: default
   pdf_document: default
 date: "2026-04-17"
@@ -9,7 +9,8 @@ date: "2026-04-17"
 
 Group 6 Members: Abril Zarate, Andrew Carias
 
-```{r-Task 2:Perform an initial exploration}
+```{r}
+# Task 2:Perform an initial exploration}
 library(tidyverse)
 
 NHIS_Data_2021 <- read_csv("data/NHIS _Data_2021.csv")
@@ -22,7 +23,8 @@ Interpretation:
 
 
 
-```{r-Day 2: Task 1 - Variable Selection & Missing Value Check}
+```{r}
+# Day 2: Task 1 - Variable Selection & Missing Value Check}
   
 library(tidyverse)
 
@@ -90,22 +92,8 @@ write_csv(clean_data_R_02, "data/nhis_clean.csv")
 ```
 Interpretation:
 
-
-
-```{r-Task 2: Perform an initial exploration}
-library(tidyverse)
-
-NHIS_Data_2021 <- read_csv("data/NHIS _Data_2021.csv")
-
-str(NHIS_Data_2021)
-summary(NHIS_Data_2021)
-head(NHIS_Data_2021)
-```
-Interpretation:
-
-
-
-```{r-Day 3: Task 1: Univariate Analysis & Visualization}
+```{r}
+# Day 3: Task 1: Univariate Analysis & Visualization}
 
 library(tidyverse) #loading tidyverse package 
 library(fBasics)
@@ -312,7 +300,8 @@ Interpretation:
 
 
 
-```{r-Day 3: Task 2: Bivariate Analysis (Boxplots Age v Sex & Age v Education)}
+```{r}
+# Day 3: Task 2: Bivariate Analysis (Boxplots Age v Sex & Age v Education)}
 
 "Age v Sex Boxplot"
 boxplot(AGEP_A~SEX_A, data = nhis_clean,#boxplot
@@ -370,7 +359,9 @@ Interpretation:
 
 
 
-```{r-"Day 4: Task 1: Multivariate Visualization}
+```{r}
+# Day 4 Task 1: Multivariate_Visualization
+
 # Enhanced plot by General Health Status (PHSTAT_A)
 ggplot(nhis_clean, aes(x = HEIGHTTC_A, y = WEIGHTLBTC_A, color = factor(SEX_A))) +
   geom_point(alpha = 0.6) +
@@ -409,10 +400,20 @@ nhis_pp_variables <- nhis_clean[, c("AGEP_A", "WEIGHTLBTC_A", "HEIGHTTC_A")]
 pairs.panels(
   nhis_pp_variables,
   method = "pearson",     # correlation method
-  hist.col = "chartreuse4", # histogram color on diagonal
+  hist.col = "chartreuse4", 
   density = TRUE,         # add density plots
   ellipses = TRUE         # add correlation ellipses
 )
 ```
 Interpretation:
 
+The multivariate visualizations provide insight into how height and weight vary across sex and different social and health-related groupings.
+
+Height vs Weight by General Health Status:
+The scatterplot shows a pretty clear upward trend—taller people generally weigh more across every health group (excellent through poor). That relationship stays pretty consistent no matter the category of health. “Fair” and “Poor” health groups have a wider spread in weight, meaning body size is more varied when compared to the tighter clustering you see in better health categories. Across all the panels, males consistently sit at higher weight values than females at similar heights, which keeps showing up as a pretty stable sex difference in body size.
+
+Height vs Weight by Education Level:
+The same pattern is seen here too from above as height and weight move together across all education groups. People with higher education (college graduates and above) look a bit more tightly clustered, while lower education groups show more variation in weight at similar heights. But the overall relationship doesn’t really change by education level. Males tend to cluster higher in weight than females across every group, furthering proving that the pattern stays consistent no matter the education category.
+
+Correlation Matrix (Age, Height, Weight):
+The correlation results back up what the plots are showing. Height and weight have a moderate positive relationship (around 0.50), meaning taller people tend to weigh more. Age, on the other hand, barely relates to either variable—almost zero with height (-0.02) and very weak with weight (-0.09). As a resut it can be said that in this dataset, body size doesn’t really shift with age. The histograms also show age is pretty spread out across the sample, while height and weight are more normally concentrated around their middle ranges.
