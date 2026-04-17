@@ -1,0 +1,9 @@
+---
+title: Spring 2026 PUBH 422 Project 2 Group 6
+output: html_document
+date: "2026-04-17"
+---
+
+Group 6 Members
+
+Abril Zarate

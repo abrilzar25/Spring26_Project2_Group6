@@ -2,7 +2,7 @@
 
 library(tidyverse) #loading tidyverse package 
 
-nhis_clean <- read.csv(choose.files("C:/Users/her_n/OneDrive/Documents/MPH Program/Spring 2026/PUBH422 Statistical Planning for Health Data/Group Project 2/Spring26_Project2_Group6/data/nhis_clean.csv"), header = T) #loading nhis_clean data into R
+nhis_clean <- read_csv("data/nhis_clean.csv") #loading nhis_clean data into R
 
 "Quantitative Variables"
 
