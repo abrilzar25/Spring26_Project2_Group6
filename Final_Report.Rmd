@@ -4,6 +4,412 @@ output: html_document
 date: "2026-04-17"
 ---
 
-Group 6 Members
+Group 6 Members: Abril Zarate, Andrew Carias
 
-Abril Zarate
+```{r-Task 2:Perform an initial exploration}
+library(tidyverse)
+
+NHIS_Data_2021 <- read_csv("data/NHIS _Data_2021.csv")
+
+str(NHIS_Data_2021)
+summary(NHIS_Data_2021)
+head(NHIS_Data_2021)
+```
+Interpretation:
+
+
+
+```{r-Day 2: Task 1 - Variable Selection & Missing Value Check}
+  
+library(tidyverse)
+
+NHIS_Data_2021 <- read_csv("data/NHIS _Data_2021.csv")
+
+# Select only variables asked for
+data_import_R_02_subset <- NHIS_Data_2021 |>
+  select(
+    AGEP_A,
+    WEIGHTLBTC_A,
+    HEIGHTTC_A,
+    SEX_A,
+    HISPALLP_A,
+    EDUCP_A,
+    PHSTAT_A,
+    LSATIS4R_A
+  )
+View(data_import_R_02_subset)
+
+# Remove missing / nonresponse values using variable-specific codebook values
+clean_data_R_02 <- data_import_R_02_subset |>
+  filter(
+    !AGEP_A %in% c(97, 98, 99),
+    !SEX_A %in% c(7, 9),
+    !HISPALLP_A %in% c(97, 98, 99),
+    !EDUCP_A %in% c(97, 98, 99),
+    !PHSTAT_A %in% c(7, 8, 9),
+    !LSATIS4R_A %in% c(7, 8, 9),
+    !WEIGHTLBTC_A %in% c(996, 997, 998, 999),
+    !HEIGHTTC_A %in% c(96, 97, 98, 99)
+  ) 
+View(clean_data_R_02) # check
+
+# Check cleaned data
+summary(clean_data_R_02)
+sum(is.na(clean_data_R_02))
+
+# Day 2: Task 2 - Recoding Variables
+
+clean_data_R_02 <- clean_data_R_02 %>%
+  mutate(
+    EDUCP_A = case_when(
+      EDUCP_A >= 0 & EDUCP_A <= 3 ~ 1,
+      EDUCP_A == 4 ~ 2,
+      EDUCP_A >= 5 & EDUCP_A <= 7 ~ 3,
+      EDUCP_A >= 8 & EDUCP_A <= 10 ~ 4
+    ),
+    EDUCP_A = factor(
+      EDUCP_A,
+      levels = c(1, 2, 3, 4),
+      labels = c(
+        "Less than High School",
+        "High School Graduate",
+        "Some College Education",
+        "College Graduate or Better"
+      )
+    )
+  )
+
+# Verify recoding
+summary(clean_data_R_02)
+table(clean_data_R_02$EDUCP_A)
+
+write_csv(clean_data_R_02, "data/nhis_clean.csv")
+```
+Interpretation:
+
+
+
+```{r-Task 2:Perform an initial exploration}
+library(tidyverse)
+
+NHIS_Data_2021 <- read_csv("data/NHIS _Data_2021.csv")
+
+str(NHIS_Data_2021)
+summary(NHIS_Data_2021)
+head(NHIS_Data_2021)
+```
+Interpretation:
+
+
+
+```{r-Day 3: Task 1: Univariate Analysis & Visualization}
+
+library(tidyverse) #loading tidyverse package 
+library(fBasics)
+
+nhis_clean <- read_csv("data/nhis_clean.csv") #loading nhis_clean data into R
+
+"Quantitative Variables"
+
+#AgeP_A (Age)
+summary(nhis_clean$AGEP_A) #summary stats for age 
+sd(nhis_clean$AGEP_A) #standard deviation for age 
+
+#Base histogram AGEP_A
+hist(nhis_clean$AGEP_A, main = "Age Distribution",xlab="Age")
+
+#ggplot histogram AGEP_A
+ggplot(nhis_clean,aes(x=AGEP_A)) + #x axis will be Age 
+  geom_histogram(binwidth = 5) + #data will be distributed among 5 bins
+  xlab("Ages") + #x axis title 
+  ggtitle("Age Distribution of Sample Adults") #chart title  
+
+#Base boxplot of AGEP_A
+boxplot(nhis_clean$AGEP_A, main = "Age Distribution of Sample Adults") 
+
+#ggplot boxplot of AGEP_A
+ggplot(nhis_clean, aes(y=AGEP_A)) + #y axis will be age values 
+  geom_boxplot() + #identifying boxplot
+  ggtitle("Age Distribution of Sample Adults") + #chart title
+  ylab("Ages") #y axis title
+
+ 
+#WEIGHTLBTC_A (Weight w/out shoes)
+summary(nhis_clean$WEIGHTLBTC_A) #Summary stat for weight w/o shoes
+sd(nhis_clean$WEIGHTLBTC_A) #standard dev for weight w/o shoes 
+
+basicStats(nhis_clean$WEIGHTLBTC_A) #summary stat for weight w/o shoes 
+
+#Base histogram WEIGHTLBTC_A
+hist(nhis_clean$WEIGHTLBTC_A, main = "Weight Distribution of Sample Adults w/out Shoes",xlab="Weight")
+
+#ggplot histogram WEIGHTLBTC_A
+ggplot(nhis_clean,aes(x=WEIGHTLBTC_A)) + #x axis will be weight 
+  geom_histogram(binwidth = 10) + #data will be distributed among 10 bins
+  xlab("Weight") + #x axis title 
+  ggtitle("Weight Distribution of Sample Adults w/out Shoes") #chart title  
+
+#Base boxplot of WEIGHTLBTC_A
+boxplot(nhis_clean$WEIGHTLBTC_A, main = "Weight Distribution of Sample Adults w/out Shoes") 
+
+#ggplot boxplot of WEIGHTLBTC_A
+ggplot(nhis_clean, aes(y=WEIGHTLBTC_A)) + #y axis will be weight values
+  geom_boxplot() + #identidying boxplot
+  ggtitle("Weight Distribution of Sample Adults w/out Shoes") + #chart title
+  ylab("Weight") #y axis title 
+
+
+#HEIGHTTTC_A (Heigh in Inches)
+basicStats(nhis_clean$HEIGHTTC_A) #summary stat for total height in inches  
+
+#Base histogram HEIGHTTTC_A
+hist(nhis_clean$HEIGHTTC_A, main = "Height Distribution of Sample Adults",xlab="Total Height in Inches")
+
+#ggplot histogram HEIGHTTTC_A
+ggplot(nhis_clean,aes(x=HEIGHTTC_A)) + #x axis will be total height in inches 
+  geom_histogram(binwidth = 2) + #data will be distributed among 2 bins
+  xlab("Total Height in Inches") + #x axis title 
+  ggtitle("Height Distribution of Sample Adults") #chart title  
+
+#Base boxplot of HEIGHTTTC_A
+boxplot(nhis_clean$HEIGHTTC_A, main="Total Height Distribution in Inches of Sample Adults") 
+
+#ggplot boxplot of HEIGHTTTC_A
+ggplot(nhis_clean, aes(y=HEIGHTTC_A)) + #y axis will be height values
+  geom_boxplot() + #identidying boxplot
+  ggtitle("Height Distribution of Sample Adults") + #chart title
+  ylab("Total Height in Inches") #y axis title 
+
+"Qualitative Variables"
+
+#SEX_A (Gender)
+
+nhis_clean$SEX_A <- factor(nhis_clean$SEX_A, #creating categorical data to a factor 
+                           levels = c(1,2), #identifying the values w/in data
+                           labels = c("Males","Females")) #relabeling the values w/corresponding label
+
+sex_a_freq_table <- table(nhis_clean$SEX_A) #creating frequency table of sex_a variable 
+
+sex_a_freq_table #printing out the sex_a frequency table 
+
+barplot(sex_a_freq_table, #indicating r base barplot of sex_a variable through freq table 
+        main = "Distibution of Sex Among Adult Sample", #chart title
+        xlab = "Sex", #x axis title
+        ylab = "Frequency", #y axis title
+        col = c("lightblue","lightpink")) #bar plot colors 
+
+sex_a_freq_df <- as.data.frame(sex_a_freq_table) #converting freq table to a data frame for ggplot 
+
+ggplot(sex_a_freq_df, aes(x=Var1,y=Freq)) + #using ggplot & the data frame, indicating x as the variables and y as the frequency
+  geom_bar(stat = "identity",fill ="purple") + #indicating bar plot
+  labs(title = "Distribution of Sex Among Adult Sample", #chart title
+       x = "Sex", #x axis title
+       y = "Frequency") #y axis title
+
+#HISPALLP_A (Race/Ethnicity)
+
+nhis_clean$HISPALLP_A <- factor(nhis_clean$HISPALLP_A, #creating categorical data to a factor 
+                           levels = c(1,2,3,4,5,6,7), #identifying the values w/in data
+                           labels = c("Hispanic","NHWhite","NHAA","NHAsian Only","NHAIAN","NHAIAN&Other","Other")) #relabeling the values w/corresponding label
+
+hispallp_a_freq_table <- table(nhis_clean$HISPALLP_A) #creating frequency table of HISPALLPa variable 
+
+hispallp_a_freq_table #printing out the hispallp_a frequency table 
+
+barplot(hispallp_a_freq_table, #indicating r base barplot of hispallp_a variable through freq table 
+        main = "Distibution of Race/Ethnicity Among Adult Sample", #chart title
+        xlab = "Race/Ethniticy", #x axis title
+        ylab = "Frequency", #y axis title
+        col = terrain.colors(7), #bar plot colors 
+        cex.names = 0.6) #label size
+
+hispallp_a_freq_df <- as.data.frame(hispallp_a_freq_table) #converting freq table to a data frame for ggplot 
+
+ggplot(hispallp_a_freq_df, aes(x=Var1,y=Freq)) + #using ggplot & the data frame, indicating x as the variables and y as the frequency
+  geom_bar(stat = "identity",fill ="lightgreen") + #indicating bar plot
+  labs(title = "Distribution of Race/Ethnicity Among Adult Sample", #chart title
+       x = "Race/Ethnicity", #x axis title
+       y = "Frequency") #y axis title
+
+#EDUCP_A (Education Level)
+
+"EDCUP_A was already recoded and turned into a factor in previous task"
+
+educp_a_freq_table <- table(nhis_clean$EDUCP_A) #creating frequency table of EDUCP_A variable 
+
+educp_a_freq_table #printing out the educp_a frequency table 
+
+barplot(educp_a_freq_table, #indicating r base barplot of educp_a variable through freq table 
+        main = "Distibution of Education Level Among Adult Sample", #chart title
+        xlab = "Education Level", #x axis title
+        ylab = "Frequency", #y axis title
+        col = rainbow(4), #bar plot colors 
+        cex.names = 0.45) #label size
+
+educp_a_freq_df <- as.data.frame(educp_a_freq_table) #converting freq table to a data frame for ggplot 
+
+ggplot(educp_a_freq_df, aes(x=Var1,y=Freq)) + #using ggplot & the data frame, indicating x as the variables and y as the frequency
+  geom_bar(stat = "identity",fill ="blue") + #indicating bar plot
+  labs(title = "Distribution of Education Level Among Adult Sample", #chart title
+       x = "Race/Ethnicity", #x axis title
+       y = "Frequency") + #yaxis title 
+  theme(axis.text.x = element_text(size = 9, angle = 45, hjust = 1)) #adjusts labels on x axis
+
+#PHSTAT_A (General Health)
+
+nhis_clean$PHSTAT_A<- factor(nhis_clean$PHSTAT_A, #creating categorical data to a factor 
+                                levels = c(1,2,3,4,5), #identifying the values w/in data
+                                labels = c("Excellent","Very Good","Good","Fair","Poor")) #relabeling the values w/corresponding label
+
+phstat_a_freq_table <- table(nhis_clean$PHSTAT_A) #creating frequency table of PHSTAT_A variable 
+
+phstat_a_freq_table #printing out the phstat_a frequency table 
+
+barplot(phstat_a_freq_table, #indicating r base barplot of phstat_a variable through freq table 
+        main = "Distibution of Health Status Among Adult Sample", #chart title
+        xlab = "General Health Status", #x axis title
+        ylab = "Frequency", #y axis title
+        col = topo.colors(5), #bar plot colors 
+        cex.names = 0.8) #label size
+
+phstat_a_freq_df <- as.data.frame(phstat_a_freq_table) #converting freq table to a data frame for ggplot 
+
+ggplot(phstat_a_freq_df, aes(x=Var1,y=Freq)) + #using ggplot & the data frame, indicating x as the variables and y as the frequency
+  geom_bar(stat = "identity",fill ="gray") + #indicating bar plot
+  labs(title = "Distribution of Health Status Among Adult Sample", #chart title
+       x = "General Health Status", #x axis title
+       y = "Frequency") #y axis title
+
+#LSATIS4R_A (Quality of Life)
+
+nhis_clean$LSATIS4R_A<- factor(nhis_clean$LSATIS4R_A, #creating categorical data to a factor 
+                             levels = c(1,2,3,4), #identifying the values w/in data
+                             labels = c("Very Satisfied","Satisfied","Dissatisfied","Very Dissatisfied")) #relabeling the values w/corresponding label
+
+lsatis4r_a_freq_table <- table(nhis_clean$LSATIS4R_A) #creating frequency table of LSATIS4R_A variable 
+
+lsatis4r_a_freq_table #printing out the lsatis4r_a frequency table 
+
+barplot(lsatis4r_a_freq_table, #indicating r base barplot of lsatis4r_a variable through freq table 
+        main = "Distibution of Quality of Life Among Adult Sample", #chart title
+        xlab = "Quality of Life", #x axis title
+        ylab = "Frequency", #y axis title
+        col = heat.colors(4), #bar plot colors 
+        cex.names = 0.8) #label size
+
+lstatis4r_a_freq_df <- as.data.frame(lsatis4r_a_freq_table) #converting freq table to a data frame for ggplot 
+
+ggplot(lstatis4r_a_freq_df, aes(x=Var1,y=Freq)) + #using ggplot & the data frame, indicating x as the variables and y as the frequency
+  geom_bar(stat = "identity",fill = "orange") + #indicating bar plot
+  labs(title = "Distribution of Quality of Life Among Adult Sample", #chart title
+       x = "Quality of Life", #x axis title
+       y = "Frequency") #y axis title
+```
+Interpretation:
+
+
+
+```{r-Day 3: Task 2: Bivariate Analysis (Boxplots Age v Sex & Age v Education)}
+
+"Age v Sex Boxplot"
+boxplot(AGEP_A~SEX_A, data = nhis_clean,#boxplot
+        main = "Boxplot of Age by Sex ", #chart title
+        xlab = "Sex", #x axis title
+        ylab = "Age") #y axis title
+
+"Age v Education Boxplot"
+boxplot(AGEP_A~EDUCP_A, data = nhis_clean,#boxplot
+        main = "Boxplot of Age by Education ", #chart title
+        xlab = "Education Level", #x axis title
+        ylab = "Age") #y axis title
+
+"Age v Sex GGPlot"
+ggplot(nhis_clean,aes(x=SEX_A,y=AGEP_A)) + #indicating gglot, data set, x & y axis
+  geom_boxplot(aes(fill = factor(SEX_A))) + #identifying boxplot chart & filling box with Sex values
+  labs(title = "Boxplot of Age by Sex", #chart title
+       x = "Sex", #x axis title
+       y = "Age", #y axis title
+       fill = "Sex") #title of legend 
+
+"Age v Education ggplot"
+ggplot(nhis_clean,aes(x=EDUCP_A,y=AGEP_A)) + #indicating gglot, data set, x & y axis
+  geom_boxplot(aes(fill = factor(EDUCP_A))) + #identifying boxplot chart & filling box with Educ values
+  labs(title = "Boxplot of Age by Education Level", #chart title
+       x = "Education Level", #x axis title
+       y = "Age", #y axis title
+       fill = "Education Level") #title of legend 
+
+#Clustered Bar Chart (General Health & Life Statisfaction)
+
+ggplot(nhis_clean,aes(x=PHSTAT_A,fill = LSATIS4R_A)) + #identifying ggplot, x axis and y axis 
+  geom_bar(position = "dodge") + #indicating bar chart 
+  labs(title = "Relationship between General Health & Life Satisfaction", #chart title
+       x = "General Health Status", #x axis title
+       y = "Count", #y axis title
+       fill = "Life Satisfaction") #legend title 
+
+#Scatterplot of Height vs Weight 
+
+plot(nhis_clean$HEIGHTTC_A,nhis_clean$WEIGHTLBTC_A, #scatterplot usingt plot() for height vs weight 
+     main = "Height(in.) vs Weight (lbs.) Scatterplot", #chart title
+     xlab = "Height (in.)", #x axis title
+     ylab = "Weight(lbs.)") #y axis title
+
+ggplot(nhis_clean,aes(x=HEIGHTTC_A,y=WEIGHTLBTC_A)) + #using ggplot for scatterplot, indicating x and y values 
+  geom_point() + #indicating points for each observation 
+  labs(title = "Height(in.) vs Weight (lbs.) Scatterplot", #chart title
+       x = "Height (in.)", #x axis title
+       y = "Weight(lbs.)") #y axis title
+
+cor(nhis_clean$HEIGHTTC_A,nhis_clean$WEIGHTLBTC_A) #calculating & reporting correlation coefficient; results 0.5158, medium correlation 
+```
+Interpretation:
+
+
+
+```{r-"Day 4: Task 1: Multivariate Visualization}
+# Enhanced plot by General Health Status (PHSTAT_A)
+ggplot(nhis_clean, aes(x = HEIGHTTC_A, y = WEIGHTLBTC_A, color = factor(SEX_A))) +
+  geom_point(alpha = 0.6) +
+  facet_wrap(~ PHSTAT_A) +
+  labs(
+    title = "Height vs Weight by Sex and General Health Status",
+    x = "Height (in.)",
+    y = "Weight (lbs)",
+    color = "Sex"
+  ) +
+  theme_linedraw()
+
+# or Enhanced plot by Education Level (PHSTAT_A)
+ggplot(nhis_clean, aes(x = HEIGHTTC_A, y = WEIGHTLBTC_A, color = factor(SEX_A))) +
+  geom_point(alpha = 0.6) +
+  facet_wrap(~ EDUCP_A) +
+  labs(
+    title = "Height vs Weight by Sex and Education Level",
+    x = "Height (in.)",
+    y = "Weight (lbs)",
+    color = "Sex"
+  ) +
+  theme_linedraw()
+
+# Create a correlation scatter plot matrix using pairs.panels() from the psych library to visualize AGEP_A, WEIGHTLBTC_A, and HEIGHTTC_A
+
+# Install psych 
+install.packages("psych")
+# Load the package
+library(psych)
+
+#Isolate three variables 
+nhis_pp_variables <- nhis_clean[, c("AGEP_A", "WEIGHTLBTC_A", "HEIGHTTC_A")] 
+
+# Create the pairs.panels correlation plot
+pairs.panels(
+  nhis_pp_variables,
+  method = "pearson",     # correlation method
+  hist.col = "chartreuse4", # histogram color on diagonal
+  density = TRUE,         # add density plots
+  ellipses = TRUE         # add correlation ellipses
+)
+```
+Interpretation:
+
