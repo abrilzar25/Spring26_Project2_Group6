@@ -20,8 +20,10 @@ ggplot(nhis_clean,aes(x=AGEP_A)) + #x axis will be Age
   xlab("Ages") + #x axis title 
   ggtitle("Age Distribution of Sample Adults") #chart title  
 
+"Interpretation: The age distribution spans from approximately 18 to 80 years which demonstrates a wide range of ages in the sample. The graph shows a higher concentration of individuals in the middle-to-older age groups, mainly between 50-70 years with a peak around early 60s. Overall, the distribution demonstrates considerable variability with a small tendency toward older ages."
+
 #Base boxplot of AGEP_A
-boxplot(nhis_clean$AGEP_A, main = "Age Distribution of Sample Adults") 
+boxplot(nhis_clean$AGEP_A, main = "Age Distribution of Sample Adults", ylab = "Age") 
 
 #ggplot boxplot of AGEP_A
 ggplot(nhis_clean, aes(y=AGEP_A)) + #y axis will be age values 
@@ -29,6 +31,7 @@ ggplot(nhis_clean, aes(y=AGEP_A)) + #y axis will be age values
   ggtitle("Age Distribution of Sample Adults") + #chart title
   ylab("Ages") #y axis title
 
+"Interpretation: The boxplots demonstrate that the median age of participants is around mid-50s, resulting in a relatively older sample. The overall age range spans from slightly below 20 to around 80 years of age. The distribution appears slightly left-skewed, with a somewhat greater spread among older ages and no significant outliers are observed."
  
 #WEIGHTLBTC_A (Weight w/out shoes)
 summary(nhis_clean$WEIGHTLBTC_A) #Summary stat for weight w/o shoes
@@ -37,23 +40,26 @@ sd(nhis_clean$WEIGHTLBTC_A) #standard dev for weight w/o shoes
 basicStats(nhis_clean$WEIGHTLBTC_A) #summary stat for weight w/o shoes 
 
 #Base histogram WEIGHTLBTC_A
-hist(nhis_clean$WEIGHTLBTC_A, main = "Weight Distribution of Sample Adults w/out Shoes",xlab="Weight")
+hist(nhis_clean$WEIGHTLBTC_A, main = "Weight Distribution of Sample Adults w/out Shoes",xlab="Weight(lbs)")
 
 #ggplot histogram WEIGHTLBTC_A
 ggplot(nhis_clean,aes(x=WEIGHTLBTC_A)) + #x axis will be weight 
   geom_histogram(binwidth = 10) + #data will be distributed among 10 bins
-  xlab("Weight") + #x axis title 
+  xlab("Weight(lbs)") + #x axis title 
   ggtitle("Weight Distribution of Sample Adults w/out Shoes") #chart title  
 
+"Interpretation: The weight distribution ranges from approximately 100 to around 300 pounds, indicating a wide range of weights in the sample. The graph shows a positive skew, with a higher concentration of individuals weighing 130 to 200 pounds, mainly 140 to 190, peaking at 170. Overall, the distribution shows considerable variability with slight outliers."
+
 #Base boxplot of WEIGHTLBTC_A
-boxplot(nhis_clean$WEIGHTLBTC_A, main = "Weight Distribution of Sample Adults w/out Shoes") 
+boxplot(nhis_clean$WEIGHTLBTC_A, main = "Weight Distribution of Sample Adults w/out Shoes", ylab = "Weight(lbs)") 
 
 #ggplot boxplot of WEIGHTLBTC_A
 ggplot(nhis_clean, aes(y=WEIGHTLBTC_A)) + #y axis will be weight values
   geom_boxplot() + #identidying boxplot
   ggtitle("Weight Distribution of Sample Adults w/out Shoes") + #chart title
-  ylab("Weight") #y axis title 
+  ylab("Weight(lbs)") #y axis title 
 
+"Interpretation: The boxplots show that the median weight of participants is about 180 pounds, indicating this is the typical weight in this sample. Overall, weights range from 100 to about 300 pounds, but most adults cluster between 150 and 200 pounds. A few heavier individuals pull the distribution slightly to the right."
 
 #HEIGHTTTC_A (Heigh in Inches)
 basicStats(nhis_clean$HEIGHTTC_A) #summary stat for total height in inches  
@@ -67,14 +73,18 @@ ggplot(nhis_clean,aes(x=HEIGHTTC_A)) + #x axis will be total height in inches
   xlab("Total Height in Inches") + #x axis title 
   ggtitle("Height Distribution of Sample Adults") #chart title  
 
+"Interpretation: The height distribution ranges from approximately 60 to about 75 inches, indicating substantial variability in the sample. The graph shows a higher concentration of individuals measuring 62 to 70 inches, with a peak at 63 inches. Overall, the distribution is slightly skewed to the right, but it appears fairly balanced."
+
 #Base boxplot of HEIGHTTTC_A
-boxplot(nhis_clean$HEIGHTTC_A, main="Total Height Distribution in Inches of Sample Adults") 
+boxplot(nhis_clean$HEIGHTTC_A, main="Total Height Distribution in Inches of Sample Adults", ylab = "Height(in.)") 
 
 #ggplot boxplot of HEIGHTTTC_A
 ggplot(nhis_clean, aes(y=HEIGHTTC_A)) + #y axis will be height values
   geom_boxplot() + #identidying boxplot
   ggtitle("Height Distribution of Sample Adults") + #chart title
   ylab("Total Height in Inches") #y axis title 
+
+"Interpretation: Overall, heights range from about 60 to about 75 inches, but most adults cluster between 65 and 70 inches. The boxplots show that the median height is about 66 inches, indicating this is the typical height in this sample. The median is slightly closer to the lower quartile, and the upper whisker is a bit longer, suggesting a mild right skew; however, the distribution looks fairly balanced overall."
 
 "Qualitative Variables"
 
@@ -102,6 +112,8 @@ ggplot(sex_a_freq_df, aes(x=Var1,y=Freq)) + #using ggplot & the data frame, indi
        x = "Sex", #x axis title
        y = "Frequency") #y axis title
 
+"Interpretation: The sample shows that there are more female participants than male participants, with 14,070 and 11,967, respectively." 
+
 #HISPALLP_A (Race/Ethnicity)
 
 nhis_clean$HISPALLP_A <- factor(nhis_clean$HISPALLP_A, #creating categorical data to a factor 
@@ -127,6 +139,8 @@ ggplot(hispallp_a_freq_df, aes(x=Var1,y=Freq)) + #using ggplot & the data frame,
        x = "Race/Ethnicity", #x axis title
        y = "Frequency") #y axis title
 
+"Interpretation: The sample consists mostly of Non-Hispanic White individuals, representing 17,617 of the sample. Hispanic participants were the second most represented in the sample, comprising 3,533 participants. Non-Hispanic African Americans and Non-Hispanic Asians had similar representation, with 2645 and 1564, respectively. Lastly, Non-Hispanic American Indian and Alaska Native, Non-Hispanic American Indian and Alaska Native and Other, and Other were the least represented in the sample."
+
 #EDUCP_A (Education Level)
 
 "EDCUP_A was already recoded and turned into a factor in previous task"
@@ -140,7 +154,7 @@ barplot(educp_a_freq_table, #indicating r base barplot of educp_a variable throu
         xlab = "Education Level", #x axis title
         ylab = "Frequency", #y axis title
         col = rainbow(4), #bar plot colors 
-        cex.names = 0.45) #label size
+        cex.names = 0.6) #label size
 
 educp_a_freq_df <- as.data.frame(educp_a_freq_table) #converting freq table to a data frame for ggplot 
 
@@ -150,6 +164,8 @@ ggplot(educp_a_freq_df, aes(x=Var1,y=Freq)) + #using ggplot & the data frame, in
        x = "Race/Ethnicity", #x axis title
        y = "Frequency") + #yaxis title 
   theme(axis.text.x = element_text(size = 9, angle = 45, hjust = 1)) #adjusts labels on x axis
+
+"Interpretation: The majority of the participants are educated because most of the sample are college graduates or better, and the second most represented group obtained some college education. High school graduates were the third most represented group, and the least represented group had less than a high school education."
 
 #PHSTAT_A (General Health)
 
@@ -176,6 +192,8 @@ ggplot(phstat_a_freq_df, aes(x=Var1,y=Freq)) + #using ggplot & the data frame, i
        x = "General Health Status", #x axis title
        y = "Frequency") #y axis title
 
+"Interpretation: The majority of the participants report having a very good health status, with most rating their health as “very good” to “good.” The third most represented group reported an “excellent” health status, and “fair” and “poor” were reported to be fourth and fifth, respectively."
+
 #LSATIS4R_A (Quality of Life)
 
 nhis_clean$LSATIS4R_A<- factor(nhis_clean$LSATIS4R_A, #creating categorical data to a factor 
@@ -201,7 +219,7 @@ ggplot(lstatis4r_a_freq_df, aes(x=Var1,y=Freq)) + #using ggplot & the data frame
        x = "Quality of Life", #x axis title
        y = "Frequency") #y axis title
 
-
+"Interpretation: The sample reports a high quality of life, with the majority of participants rating their lives as “very satisfied” or “satisfied.” Very few participants reported their lives as “dissatisfied” or “very dissatisfied."
 
 
 
