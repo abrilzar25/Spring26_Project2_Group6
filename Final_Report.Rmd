@@ -7,7 +7,7 @@ output:
 date: "2026-04-17"
 ---
 
-Group 6 Members: Abril Zarate, Andrew Carias
+Group 6 Members: Abril Zarate, Andrew Carias, Nancy Hernandez
 
 ```{r}
 # Task 2:Perform an initial exploration}
