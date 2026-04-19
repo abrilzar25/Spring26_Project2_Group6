@@ -114,17 +114,24 @@ ggplot(nhis_clean,aes(x=AGEP_A)) + #x axis will be Age
   geom_histogram(binwidth = 5) + #data will be distributed among 5 bins
   xlab("Ages") + #x axis title 
   ggtitle("Age Distribution of Sample Adults") #chart title  
+```
 
+Interpretation: The age distribution spans from approximately 18 to 80 years which demonstrates a wide range of ages in the sample. The graph shows a higher concentration of individuals in the middle-to-older age groups, mainly between 50-70 years with a peak around early 60s. Overall, the distribution demonstrates considerable variability with a small tendency toward older ages.
+
+```{r}
 #Base boxplot of AGEP_A
-boxplot(nhis_clean$AGEP_A, main = "Age Distribution of Sample Adults") 
+boxplot(nhis_clean$AGEP_A, main = "Age Distribution of Sample Adults", ylab="Age") 
 
 #ggplot boxplot of AGEP_A
 ggplot(nhis_clean, aes(y=AGEP_A)) + #y axis will be age values 
   geom_boxplot() + #identifying boxplot
   ggtitle("Age Distribution of Sample Adults") + #chart title
   ylab("Ages") #y axis title
+```
 
- 
+Interpretation: The boxplots demonstrate that the median age of participants is around mid-50s, resulting in a relatively older sample. The overall age range spans from slightly below 20 to around 80 years of age. The distribution appears slightly left-skewed, with a somewhat greater spread among older ages and no significant outliers are observed.
+
+```{r} 
 #WEIGHTLBTC_A (Weight w/out shoes)
 summary(nhis_clean$WEIGHTLBTC_A) #Summary stat for weight w/o shoes
 sd(nhis_clean$WEIGHTLBTC_A) #standard dev for weight w/o shoes 
@@ -132,24 +139,31 @@ sd(nhis_clean$WEIGHTLBTC_A) #standard dev for weight w/o shoes
 basicStats(nhis_clean$WEIGHTLBTC_A) #summary stat for weight w/o shoes 
 
 #Base histogram WEIGHTLBTC_A
-hist(nhis_clean$WEIGHTLBTC_A, main = "Weight Distribution of Sample Adults w/out Shoes",xlab="Weight")
+hist(nhis_clean$WEIGHTLBTC_A, main = "Weight Distribution of Sample Adults w/out Shoes",xlab="Weight(lbs)")
 
 #ggplot histogram WEIGHTLBTC_A
 ggplot(nhis_clean,aes(x=WEIGHTLBTC_A)) + #x axis will be weight 
   geom_histogram(binwidth = 10) + #data will be distributed among 10 bins
-  xlab("Weight") + #x axis title 
+  xlab("Weight(lbs)") + #x axis title 
   ggtitle("Weight Distribution of Sample Adults w/out Shoes") #chart title  
+```
 
+Interpretation: The weight distribution ranges from approximately 100 to around 300 pounds, indicating a wide range of weights in the sample. The graph shows a positive skew, with a higher concentration of individuals weighing 130 to 200 pounds, mainly 140 to 190, peaking at 170. Overall, the distribution shows considerable variability with slight outliers.
+
+```{r}
 #Base boxplot of WEIGHTLBTC_A
-boxplot(nhis_clean$WEIGHTLBTC_A, main = "Weight Distribution of Sample Adults w/out Shoes") 
+boxplot(nhis_clean$WEIGHTLBTC_A, main = "Weight Distribution of Sample Adults w/out Shoes",ylab = "Weight(lbs)") 
 
 #ggplot boxplot of WEIGHTLBTC_A
 ggplot(nhis_clean, aes(y=WEIGHTLBTC_A)) + #y axis will be weight values
   geom_boxplot() + #identidying boxplot
   ggtitle("Weight Distribution of Sample Adults w/out Shoes") + #chart title
-  ylab("Weight") #y axis title 
+  ylab("Weight(lbs)") #y axis title 
+```
 
+Interpretation: The boxplots show that the median weight of participants is about 180 pounds, indicating this is the typical weight in this sample. Overall, weights range from 100 to about 300 pounds, but most adults cluster between 150 and 200 pounds. A few heavier individuals pull the distribution slightly to the right.
 
+```{r}
 #HEIGHTTTC_A (Heigh in Inches)
 basicStats(nhis_clean$HEIGHTTC_A) #summary stat for total height in inches  
 
@@ -161,16 +175,24 @@ ggplot(nhis_clean,aes(x=HEIGHTTC_A)) + #x axis will be total height in inches
   geom_histogram(binwidth = 2) + #data will be distributed among 2 bins
   xlab("Total Height in Inches") + #x axis title 
   ggtitle("Height Distribution of Sample Adults") #chart title  
+```
 
+Interpretation: The height distribution ranges from approximately 60 to about 75 inches, indicating substantial variability in the sample. The graph shows a higher concentration of individuals measuring 62 to 70 inches, with a peak at 63 inches. Overall, the distribution is slightly skewed to the right, but it appears fairly balanced.
+
+```{r}
 #Base boxplot of HEIGHTTTC_A
-boxplot(nhis_clean$HEIGHTTC_A, main="Total Height Distribution in Inches of Sample Adults") 
+boxplot(nhis_clean$HEIGHTTC_A, main="Total Height Distribution in Inches of Sample Adults",ylab = "Height(in.)") 
 
 #ggplot boxplot of HEIGHTTTC_A
 ggplot(nhis_clean, aes(y=HEIGHTTC_A)) + #y axis will be height values
   geom_boxplot() + #identidying boxplot
   ggtitle("Height Distribution of Sample Adults") + #chart title
   ylab("Total Height in Inches") #y axis title 
+```
 
+Interpretation: Overall, heights range from about 60 to about 75 inches, but most adults cluster between 65 and 70 inches. The boxplots show that the median height is about 66 inches, indicating this is the typical height in this sample. The median is slightly closer to the lower quartile, and the upper whisker is a bit longer, suggesting a mild right skew; however, the distribution looks fairly balanced overall.
+
+```{r}
 "Qualitative Variables"
 
 #SEX_A (Gender)
@@ -184,7 +206,7 @@ sex_a_freq_table <- table(nhis_clean$SEX_A) #creating frequency table of sex_a v
 sex_a_freq_table #printing out the sex_a frequency table 
 
 barplot(sex_a_freq_table, #indicating r base barplot of sex_a variable through freq table 
-        main = "Distibution of Sex Among Adult Sample", #chart title
+        main = "Distribution of Sex Among Adult Sample", #chart title
         xlab = "Sex", #x axis title
         ylab = "Frequency", #y axis title
         col = c("lightblue","lightpink")) #bar plot colors 
@@ -196,7 +218,11 @@ ggplot(sex_a_freq_df, aes(x=Var1,y=Freq)) + #using ggplot & the data frame, indi
   labs(title = "Distribution of Sex Among Adult Sample", #chart title
        x = "Sex", #x axis title
        y = "Frequency") #y axis title
+```
 
+Interpretation: The sample shows that there are more female participants than male participants, with 14,070 and 11,967, respectively.
+
+```{r}
 #HISPALLP_A (Race/Ethnicity)
 
 nhis_clean$HISPALLP_A <- factor(nhis_clean$HISPALLP_A, #creating categorical data to a factor 
@@ -208,7 +234,7 @@ hispallp_a_freq_table <- table(nhis_clean$HISPALLP_A) #creating frequency table 
 hispallp_a_freq_table #printing out the hispallp_a frequency table 
 
 barplot(hispallp_a_freq_table, #indicating r base barplot of hispallp_a variable through freq table 
-        main = "Distibution of Race/Ethnicity Among Adult Sample", #chart title
+        main = "Distribution of Race/Ethnicity Among Adult Sample", #chart title
         xlab = "Race/Ethniticy", #x axis title
         ylab = "Frequency", #y axis title
         col = terrain.colors(7), #bar plot colors 
@@ -221,7 +247,11 @@ ggplot(hispallp_a_freq_df, aes(x=Var1,y=Freq)) + #using ggplot & the data frame,
   labs(title = "Distribution of Race/Ethnicity Among Adult Sample", #chart title
        x = "Race/Ethnicity", #x axis title
        y = "Frequency") #y axis title
+```
 
+Interpretation: The sample consists mostly of Non-Hispanic White individuals, representing 17,617 of the sample. Hispanic participants were the second most represented in the sample, comprising 3,533 participants. Non-Hispanic African Americans and Non-Hispanic Asians had similar representation, with 2645 and 1564, respectively. Lastly, Non-Hispanic American Indian and Alaska Native, Non-Hispanic American Indian and Alaska Native and Other, and Other were the least represented in the sample.
+
+```{r}
 #EDUCP_A (Education Level)
 
 "EDCUP_A was already recoded and turned into a factor in previous task"
@@ -231,11 +261,11 @@ educp_a_freq_table <- table(nhis_clean$EDUCP_A) #creating frequency table of EDU
 educp_a_freq_table #printing out the educp_a frequency table 
 
 barplot(educp_a_freq_table, #indicating r base barplot of educp_a variable through freq table 
-        main = "Distibution of Education Level Among Adult Sample", #chart title
+        main = "Distribution of Education Level Among Adult Sample", #chart title
         xlab = "Education Level", #x axis title
         ylab = "Frequency", #y axis title
         col = rainbow(4), #bar plot colors 
-        cex.names = 0.45) #label size
+        cex.names = 0.6) #label size
 
 educp_a_freq_df <- as.data.frame(educp_a_freq_table) #converting freq table to a data frame for ggplot 
 
@@ -245,7 +275,11 @@ ggplot(educp_a_freq_df, aes(x=Var1,y=Freq)) + #using ggplot & the data frame, in
        x = "Race/Ethnicity", #x axis title
        y = "Frequency") + #yaxis title 
   theme(axis.text.x = element_text(size = 9, angle = 45, hjust = 1)) #adjusts labels on x axis
+```
 
+Interpretation: The majority of the participants are educated because most of the sample are college graduates or better, and the second most represented group obtained some college education. High school graduates were the third most represented group, and the least represented group had less than a high school education.
+
+```{r}
 #PHSTAT_A (General Health)
 
 nhis_clean$PHSTAT_A<- factor(nhis_clean$PHSTAT_A, #creating categorical data to a factor 
@@ -257,7 +291,7 @@ phstat_a_freq_table <- table(nhis_clean$PHSTAT_A) #creating frequency table of P
 phstat_a_freq_table #printing out the phstat_a frequency table 
 
 barplot(phstat_a_freq_table, #indicating r base barplot of phstat_a variable through freq table 
-        main = "Distibution of Health Status Among Adult Sample", #chart title
+        main = "Distribution of Health Status Among Adult Sample", #chart title
         xlab = "General Health Status", #x axis title
         ylab = "Frequency", #y axis title
         col = topo.colors(5), #bar plot colors 
@@ -270,7 +304,11 @@ ggplot(phstat_a_freq_df, aes(x=Var1,y=Freq)) + #using ggplot & the data frame, i
   labs(title = "Distribution of Health Status Among Adult Sample", #chart title
        x = "General Health Status", #x axis title
        y = "Frequency") #y axis title
+```
 
+Interpretation: The majority of the participants report having a very good health status, with most rating their health as “very good” to “good.” The third most represented group reported an “excellent” health status, and “fair” and “poor” were reported to be fourth and fifth, respectively.
+
+```{r}
 #LSATIS4R_A (Quality of Life)
 
 nhis_clean$LSATIS4R_A<- factor(nhis_clean$LSATIS4R_A, #creating categorical data to a factor 
@@ -282,7 +320,7 @@ lsatis4r_a_freq_table <- table(nhis_clean$LSATIS4R_A) #creating frequency table 
 lsatis4r_a_freq_table #printing out the lsatis4r_a frequency table 
 
 barplot(lsatis4r_a_freq_table, #indicating r base barplot of lsatis4r_a variable through freq table 
-        main = "Distibution of Quality of Life Among Adult Sample", #chart title
+        main = "Distribution of Quality of Life Among Adult Sample", #chart title
         xlab = "Quality of Life", #x axis title
         ylab = "Frequency", #y axis title
         col = heat.colors(4), #bar plot colors 
@@ -296,23 +334,18 @@ ggplot(lstatis4r_a_freq_df, aes(x=Var1,y=Freq)) + #using ggplot & the data frame
        x = "Quality of Life", #x axis title
        y = "Frequency") #y axis title
 ```
-Interpretation:
 
-
+Interpretation: The sample reports a high quality of life, with the majority of participants rating their lives as “very satisfied” or “satisfied.” Very few participants reported their lives as “dissatisfied” or “very dissatisfied.
 
 ```{r}
 # Day 3: Task 2: Bivariate Analysis (Boxplots Age v Sex & Age v Education)}
+
+#Boxplot Age v Sex
 
 "Age v Sex Boxplot"
 boxplot(AGEP_A~SEX_A, data = nhis_clean,#boxplot
         main = "Boxplot of Age by Sex ", #chart title
         xlab = "Sex", #x axis title
-        ylab = "Age") #y axis title
-
-"Age v Education Boxplot"
-boxplot(AGEP_A~EDUCP_A, data = nhis_clean,#boxplot
-        main = "Boxplot of Age by Education ", #chart title
-        xlab = "Education Level", #x axis title
         ylab = "Age") #y axis title
 
 "Age v Sex GGPlot"
@@ -322,16 +355,34 @@ ggplot(nhis_clean,aes(x=SEX_A,y=AGEP_A)) + #indicating gglot, data set, x & y ax
        x = "Sex", #x axis title
        y = "Age", #y axis title
        fill = "Sex") #title of legend 
+```
+
+Interpretation: Overall, both groups cover nearly the same age range, from slightly younger than 20 to the mid-80s. Additionally, both groups have very similar median ages, with females slightly higher; therefore, ~50 years of age is the typical age across the sexes. The distributions appear symmetrical and comparable. There is no strong skew, as there are no outliers or noticeable differences in variability between the two groups.
+
+```{r}
+#Boxplot Age v Education
+
+"Age v Education Boxplot"
+boxplot(AGEP_A~EDUCP_A, data = nhis_clean,#boxplot
+        main = "Boxplot of Age by Education ", #chart title
+        xlab = "Education Level", #x axis title
+        ylab = "Age",#y axis title
+        cex.axis = 0.75) #size of x axis text 
 
 "Age v Education ggplot"
 ggplot(nhis_clean,aes(x=EDUCP_A,y=AGEP_A)) + #indicating gglot, data set, x & y axis
   geom_boxplot(aes(fill = factor(EDUCP_A))) + #identifying boxplot chart & filling box with Educ values
   labs(title = "Boxplot of Age by Education Level", #chart title
        x = "Education Level", #x axis title
-       y = "Age", #y axis title
-       fill = "Education Level") #title of legend 
+       y = "Age", #y axis title 
+       fill = "Education Level") + #title of legend 
+  theme(axis.text.x = element_text(size = 9, angle = 45, hjust = 1)) #adjusts labels on x axis 
+```
 
-#Clustered Bar Chart (General Health & Life Statisfaction)
+Interpretation: The broad ranges across all boxes indicate substantial age diversity across all education levels. Less than High School attainment has the highest ages and the greatest variability compared to the other education levels, as indicated by the Q1, mean, Q3, and max. Overall, age appears inversely related to education level, as individuals with lower education levels tend to be older, potentially because younger generations are achieving higher education levels more often. This sample demonstrates a generational shift in educational attainment, with younger people more likely to have higher levels of education.
+
+```{r}
+#Clustered Bar Chart (General Health & Life Satisfaction)
 
 ggplot(nhis_clean,aes(x=PHSTAT_A,fill = LSATIS4R_A)) + #identifying ggplot, x axis and y axis 
   geom_bar(position = "dodge") + #indicating bar chart 
@@ -339,10 +390,14 @@ ggplot(nhis_clean,aes(x=PHSTAT_A,fill = LSATIS4R_A)) + #identifying ggplot, x ax
        x = "General Health Status", #x axis title
        y = "Count", #y axis title
        fill = "Life Satisfaction") #legend title 
+```
 
+Interpretation: As general health improves, life satisfaction tends to increase as well. People who reported “excellent” or “very good health” are much more likely to report being “very satisfied” with their lives. Participants who reported “fair” or “poor” health showed a sharp decline in the share, reporting “very satisfied,” suggesting that poorer health is strongly associated with lower life satisfaction. Interestingly, people with “good” health have the highest count of “satisfied” individuals, possibly reflecting that moderate health still allows a good degree of life satisfaction, though less enthusiasm than with “very good” or “excellent” health. Among those with “excellent” or “very good” health status, only a very small number reported being “dissatisfied” or “very dissatisfied”; this reinforces the pattern that good health contributes to positive life evaluations. Overall, the graph shows a clear, strong relationship between health and happiness because people who perceive their health as better tend to report higher life satisfaction. Conversely, as health status declines, life satisfaction drops correspondingly.
+
+```{r}
 #Scatterplot of Height vs Weight 
 
-plot(nhis_clean$HEIGHTTC_A,nhis_clean$WEIGHTLBTC_A, #scatterplot usingt plot() for height vs weight 
+plot(nhis_clean$HEIGHTTC_A,nhis_clean$WEIGHTLBTC_A, #scatterplot using plot() for height vs weight 
      main = "Height(in.) vs Weight (lbs.) Scatterplot", #chart title
      xlab = "Height (in.)", #x axis title
      ylab = "Weight(lbs.)") #y axis title
@@ -353,11 +408,9 @@ ggplot(nhis_clean,aes(x=HEIGHTTC_A,y=WEIGHTLBTC_A)) + #using ggplot for scatterp
        x = "Height (in.)", #x axis title
        y = "Weight(lbs.)") #y axis title
 
-cor(nhis_clean$HEIGHTTC_A,nhis_clean$WEIGHTLBTC_A) #calculating & reporting correlation coefficient; results 0.5158, medium correlation 
+cor(nhis_clean$HEIGHTTC_A,nhis_clean$WEIGHTLBTC_A) #calculating & reporting correlation coefficient; results 0.5023, medium correlation 
 ```
-Interpretation:
-
-
+Interpretation: The scatterplot shows heights ranging roughly from 58 to 76 inches and weights from 100 to 300 pounds. There is a positive association between height and weight, meaning that, on average, weight increases with height. This is supported by a correlation coefficient of 0.5023, indicating a moderate positive linear relationship, given the noticeable spread of weights at each height. This wide range suggests that height alone is not a precise predictor of weight and that other factors likely play a significant role in determining weight. The vertical stripes indicate that the height data is discrete rather than continuous. Furthermore, a few observations fall at the extreme high end of weight across multiple heights; although they do not disrupt the overall trend, they may warrant further investigation. Overall, while taller individuals generally weigh more, height alone is insufficient to accurately predict weight due to high variability.
 
 ```{r}
 # Day 4 Task 1: Multivariate_Visualization
