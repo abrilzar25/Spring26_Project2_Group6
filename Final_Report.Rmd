@@ -13,7 +13,7 @@ date: "2026-04-17"
 
 ***
 
-## Enrivonment Setup & Data Import
+## Environment Setup & Data Import
 
 ```{r}
 # Task 2:Perform an initial exploration}
