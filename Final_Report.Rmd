@@ -1,7 +1,7 @@
 ---
 title: Spring 2026 PUBH 422 Project 2 Group 6
 output: 
-  word_document: default    (!!!!!!REKNIT WHEN EVERYONE IS DONE WITH INTERPRETATIONS!!!!)
+  word_document: default
   html_document: default
   pdf_document: default
 date: "2026-04-17"
@@ -510,8 +510,6 @@ The same pattern is seen here too from above as height and weight move together 
 ```{r}
 # Create a correlation scatter plot matrix using pairs.panels() from the psych library to visualize AGEP_A, WEIGHTLBTC_A, and HEIGHTTC_A
 
-# Install psych 
-install.packages("psych")
 # Load the package
 library(psych)
 
