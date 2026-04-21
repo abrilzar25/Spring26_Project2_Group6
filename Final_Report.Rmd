@@ -9,7 +9,7 @@ date: "2026-04-17"
 
 # NHIS 2021 Data Analysis Group Project 
 
-### Group 6 Members: Abril Zarate, Andrew Carias, Nancy Hernandez
+### Group 6 Members: Abril Zarate, Andrew Carias, Nancy Hernandez, Brianna Ricard
 
 ***
 
